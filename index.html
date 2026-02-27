@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roca Gimnasio — El Gimnasio de Ustedes</title>
+    <meta name="description" content="Roca Gimnasio - Entrenamiento con pesas, boxeo, zumba y más. Km 13 Autopista Duarte, Santo Domingo, RD.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════
+           CSS VARIABLES & RESET
+           ═══════════════════════════════════════ */
+        :root {
+            --granate: #9B1B30;
+            --granate-dark: #7A1526;
+            --granate-light: #C42847;
+            --black: #0A0A0A;
+            --black-light: #141414;
+            --gray-900: #1A1A1A;
+            --gray-800: #2A2A2A;
+            --gray-700: #3A3A3A;
+            --gray-400: #999;
+            --gray-300: #BBB;
+            --white: #F5F5F5;
+            --pure-white: #FFFFFF;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-heading: 'Oswald', sans-serif;
+            --font-body: 'Barlow', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ═══════════════════════════════════════
+           UTILITY CLASSES
+           ═══════════════════════════════════════ */
+        .section-label {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--granate-light);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--gray-300);
+            max-width: 600px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .btn-primary {
+            background: var(--granate);
+            color: var(--pure-white);
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+            padding: 16px 44px;
+        }
+
+        .btn-primary:hover {
+            background: var(--granate-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(155, 27, 48, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--granate);
+            color: var(--granate-light);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: var(--pure-white);
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-weight: 600;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20BD5A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ═══════════════════════════════════════
+           1. NAVBAR
+           ═══════════════════════════════════════ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 0;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            color: var(--pure-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-logo .logo-accent {
+            color: var(--granate-light);
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navbar-links a {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray-300);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--granate);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: var(--pure-white);
+        }
+
+        .navbar-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            background: var(--granate);
+            color: var(--pure-white) !important;
+            padding: 10px 22px;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+            font-size: 0.8rem !important;
+        }
+
+        .navbar-cta::after { display: none !important; }
+
+        .navbar-cta:hover {
+            background: var(--granate-light) !important;
+            color: var(--pure-white) !important;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ═══════════════════════════════════════
+           2. HERO
+           ═══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3) contrast(1.1);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 10, 0.9) 0%,
+                rgba(10, 10, 10, 0.5) 40%,
+                rgba(155, 27, 48, 0.15) 100%
+            );
+        }
+
+        .hero-grain {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 120px 0 80px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border: 1px solid var(--gray-700);
+            margin-bottom: 28px;
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            animation: fadeInDown 1s ease 0.2s both;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--granate);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            line-height: 0.95;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero h1 .text-granate {
+            color: var(--granate-light);
+            display: block;
+        }
+
+        .hero-slogan {
+            font-family: var(--font-heading);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
+            color: var(--gray-300);
+            max-width: 550px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--gray-800);
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .hero-stat h3 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            color: var(--granate-light);
+            line-height: 1;
+        }
+
+        .hero-stat p {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        /* Decorative line */
+        .hero-line {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, var(--granate), transparent);
+            z-index: 2;
+            animation: fadeIn 1.5s ease 1.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ═══════════════════════════════════════
+           3. SOBRE NOSOTROS
+           ═══════════════════════════════════════ */
+        .about {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gray-800), transparent);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            filter: grayscale(30%);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -16px;
+            left: -16px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--granate);
+            z-index: -1;
+        }
+
+        .about-image .exp-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            background: var(--granate);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .exp-badge span:first-child {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+
+        .exp-badge span:last-child {
+            font-family: var(--font-heading);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-content .about-text {
+            color: var(--gray-300);
+            margin-bottom: 16px;
+            font-weight: 300;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 32px;
+        }
+
+        .about-value {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-900);
+            border-left: 3px solid var(--granate);
+        }
+
+        .about-value svg {
+            width: 24px;
+            height: 24px;
+            color: var(--granate-light);
+            flex-shrink: 0;
+        }
+
+        .about-value span {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════
+           4. SERVICIOS
+           ═══════════════════════════════════════ */
+        .services {
+            padding: 120px 0;
+            background: var(--gray-900);
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(155, 27, 48, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(155, 27, 48, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .services-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card {
+            background: var(--black-light);
+            padding: 40px 32px;
+            border: 1px solid var(--gray-800);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--granate);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--granate-dark);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            background: rgba(155, 27, 48, 0.1);
+            border: 1px solid rgba(155, 27, 48, 0.2);
+        }
+
+        .service-icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--granate-light);
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--gray-400);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ═══════════════════════════════════════
+           5. RETO 21 DÍAS
+           ═══════════════════════════════════════ */
+        .reto {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reto-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .reto-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.2) contrast(1.2);
+        }
+
+        .reto-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(155, 27, 48, 0.3) 0%, rgba(10, 10, 10, 0.9) 70%);
+        }
+
+        .reto-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .reto-left .reto-number {
+            font-family: var(--font-display);
+            font-size: clamp(6rem, 12vw, 10rem);
+            color: var(--granate);
+            line-height: 0.85;
+            opacity: 0.9;
+        }
+
+        .reto-left h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            letter-spacing: 3px;
+            margin-top: -10px;
+        }
+
+        .reto-right p {
+            color: var(--gray-300);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .reto-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 32px 0 40px;
+        }
+
+        .reto-feature {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid var(--granate);
+        }
+
+        .reto-feature svg {
+            width: 22px;
+            height: 22px;
+            color: var(--granate-light);
+            flex-shrink: 0;
+        }
+
+        .reto-feature span {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════
+           6. HORARIOS
+           ═══════════════════════════════════════ */
+        .horarios {
+            padding: 120px 0;
+            background: var(--gray-900);
+        }
+
+        .horarios-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .horarios-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .horarios-table {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .horario-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--gray-800);
+            transition: all 0.3s ease;
+        }
+
+        .horario-row:hover {
+            background: rgba(155, 27, 48, 0.05);
+            padding-left: 40px;
+        }
+
+        .horario-row .day {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .horario-row .time {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: var(--gray-300);
+            font-weight: 400;
+        }
+
+        .horario-row.closed .time {
+            color: var(--granate);
+            font-weight: 600;
+        }
+
+        .horario-row .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #25D366;
+            flex-shrink: 0;
+        }
+
+        .horario-row.closed .status-dot {
+            background: var(--granate);
+        }
+
+        /* ═══════════════════════════════════════
+           7. SUPLEMENTOS
+           ═══════════════════════════════════════ */
+        .suplementos {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .suplementos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .suplementos-content .section-title {
+            margin-bottom: 24px;
+        }
+
+        .suplementos-content p {
+            color: var(--gray-300);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .suplementos-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 28px 0 36px;
+        }
+
+        .suplementos-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .suplementos-list li svg {
+            width: 20px;
+            height: 20px;
+            color: var(--granate-light);
+            flex-shrink: 0;
+        }
+
+        .suplementos-image {
+            position: relative;
+        }
+
+        .suplementos-image img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+        }
+
+        .suplementos-image::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            right: -12px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--granate);
+            z-index: -1;
+        }
+
+        /* ═══════════════════════════════════════
+           8. CEO / FUNDADOR
+           ═══════════════════════════════════════ */
+        .ceo {
+            padding: 120px 0;
+            background: var(--gray-900);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ceo::before {
+            content: '"';
+            position: absolute;
+            top: 60px;
+            right: 10%;
+            font-family: var(--font-display);
+            font-size: 20rem;
+            color: rgba(155, 27, 48, 0.06);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .ceo-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ceo-image {
+            position: relative;
+        }
+
+        .ceo-image img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            filter: grayscale(20%);
+        }
+
+        .ceo-image .ceo-tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, var(--granate-dark), transparent);
+            padding: 40px 24px 20px;
+            text-align: center;
+        }
+
+        .ceo-tag h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+        }
+
+        .ceo-tag span {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .ceo-content .section-title {
+            margin-bottom: 28px;
+        }
+
+        .ceo-content .ceo-quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gray-300);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            padding-left: 24px;
+            border-left: 3px solid var(--granate);
+            font-weight: 300;
+        }
+
+        .ceo-content .ceo-text {
+            color: var(--gray-400);
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* ═══════════════════════════════════════
+           9. GALERÍA
+           ═══════════════════════════════════════ */
+        .galeria {
+            padding: 120px 0;
+        }
+
+        .galeria-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 260px);
+            gap: 16px;
+        }
+
+        .galeria-item {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .galeria-item:nth-child(1) {
+            grid-column: span 2;
+        }
+
+        .galeria-item:nth-child(6) {
+            grid-column: span 2;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.4s ease;
+            filter: grayscale(30%);
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+
+        .galeria-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .galeria-item:hover::after {
+            opacity: 1;
+        }
+
+        /* ═══════════════════════════════════════
+           10. TESTIMONIOS
+           ═══════════════════════════════════════ */
+        .testimonios {
+            padding: 120px 0;
+            background: var(--gray-900);
+        }
+
+        .testimonios-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonio-card {
+            background: var(--black-light);
+            padding: 40px 32px;
+            border: 1px solid var(--gray-800);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonio-card:hover {
+            border-color: var(--granate-dark);
+            transform: translateY(-4px);
+        }
+
+        .testimonio-card::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 5rem;
+            color: var(--granate);
+            opacity: 0.3;
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            line-height: 1;
+        }
+
+        .testimonio-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .testimonio-stars svg {
+            width: 18px;
+            height: 18px;
+            color: var(--granate-light);
+            fill: var(--granate-light);
+        }
+
+        .testimonio-card p {
+            color: var(--gray-300);
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 28px;
+        }
+
+        .testimonio-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonio-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--granate);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .testimonio-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .testimonio-info span {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+        }
+
+        /* ═══════════════════════════════════════
+           11. CONTACTO
+           ═══════════════════════════════════════ */
+        .contacto {
+            padding: 120px 0;
+        }
+
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+        }
+
+        .contacto-info .section-title {
+            margin-bottom: 24px;
+        }
+
+        .contacto-info > p {
+            color: var(--gray-300);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 36px;
+        }
+
+        .contacto-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .contacto-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--gray-900);
+            border-left: 3px solid var(--granate);
+            transition: all 0.3s ease;
+        }
+
+        .contacto-item:hover {
+            background: var(--gray-800);
+            padding-left: 28px;
+        }
+
+        .contacto-item svg {
+            width: 24px;
+            height: 24px;
+            color: var(--granate-light);
+            flex-shrink: 0;
+        }
+
+        .contacto-item div h4 {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--gray-400);
+            margin-bottom: 2px;
+        }
+
+        .contacto-item div span {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .contacto-whatsapp-btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .contacto-map {
+            position: relative;
+        }
+
+        .contacto-map iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 460px;
+            border: 0;
+            filter: grayscale(80%) contrast(1.1) brightness(0.8);
+            transition: filter 0.4s ease;
+        }
+
+        .contacto-map:hover iframe {
+            filter: grayscale(40%) contrast(1) brightness(0.9);
+        }
+
+        .contacto-map::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--granate);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ═══════════════════════════════════════
+           12. FOOTER
+           ═══════════════════════════════════════ */
+        .footer {
+            background: var(--black-light);
+            border-top: 1px solid var(--gray-800);
+            padding: 80px 0 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .navbar-logo {
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: var(--gray-400);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social:hover {
+            background: var(--granate);
+            border-color: var(--granate);
+            transform: translateY(-3px);
+        }
+
+        .footer-social svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--granate-light);
+        }
+
+        .footer-col .footer-schedule li {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray-400);
+            font-size: 0.85rem;
+            padding-bottom: 8px;
+        }
+
+        .footer-col .footer-schedule li span:first-child {
+            font-weight: 500;
+            color: var(--gray-300);
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid var(--gray-800);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            color: var(--gray-400);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom p span {
+            color: var(--granate-light);
+        }
+
+        /* ═══════════════════════════════════════
+           FLOATING WHATSAPP
+           ═══════════════════════════════════════ */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: bounce-in 0.6s ease 2s both;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-float svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .whatsapp-float .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #25D366;
+            animation: pulse-ring 2s ease infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        @keyframes bounce-in {
+            from { opacity: 0; transform: scale(0.3); }
+            50% { transform: scale(1.1); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .navbar-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: var(--black-light);
+                flex-direction: column;
+                justify-content: center;
+                gap: 28px;
+                transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                border-left: 1px solid var(--gray-800);
+                padding: 32px;
+            }
+
+            .navbar-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .about-grid,
+            .suplementos-grid,
+            .ceo-grid,
+            .contacto-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .ceo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ceo-image img {
+                height: 400px;
+            }
+
+            .reto-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .galeria-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+
+            .galeria-item:nth-child(1),
+            .galeria-item:nth-child(6) {
+                grid-column: span 1;
+            }
+
+            .testimonios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-stats {
+                gap: 32px;
+            }
+
+            .hero-line {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .about-image::before,
+            .suplementos-image::after,
+            .contacto-map::before {
+                display: none;
+            }
+
+            .about-values {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .galeria-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contacto-whatsapp-btns {
+                flex-direction: column;
+            }
+
+            .horario-row {
+                padding: 18px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-badge {
+                font-size: 0.7rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 54px;
+                height: 54px;
+            }
+        }
+
+        /* Mobile menu overlay */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Scroll-triggered stagger */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ NAVBAR ═══════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="navbar-logo">
+                ROCA <span class="logo-accent">GIMNASIO</span>
+            </a>
+            <div class="navbar-links" id="navLinks">
+                <a href="#about">Nosotros</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#reto">Reto 21</a>
+                <a href="#horarios">Horarios</a>
+                <a href="#galeria">Galería</a>
+                <a href="#contacto">Contacto</a>
+                <a href="https://wa.me/18098205103?text=Hola%2C%20quiero%20información%20sobre%20Roca%20Gimnasio" class="navbar-cta" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="equipo.jpeg" alt="Equipo Roca Gimnasio" loading="eager">
+        </div>
+        <div class="hero-grain"></div>
+        <div class="hero-line"></div>
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Km 13 Autopista Duarte — Santo Domingo, RD
+            </div>
+            <h1>
+                FORJA TU
+                <span class="text-granate">MEJOR VERSIÓN</span>
+            </h1>
+            <p class="hero-slogan">"El Gimnasio de ustedes, cada día brindamos un servicio especial de calidad"</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/18098205103?text=Hola%2C%20quiero%20inscribirme%20en%20Roca%20Gimnasio" class="btn btn-primary" target="_blank" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    Inscríbete Ahora
+                </a>
+                <a href="#servicios" class="btn btn-outline">Ver Servicios</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <h3>7+</h3>
+                    <p>Disciplinas</p>
+                </div>
+                <div class="hero-stat">
+                    <h3>6</h3>
+                    <p>Días a la semana</p>
+                </div>
+                <div class="hero-stat">
+                    <h3>19H</h3>
+                    <p>Abiertos cada día</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SOBRE NOSOTROS ═══════════ -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal-left">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="Interior Roca Gimnasio" loading="lazy">
+                    <div class="exp-badge">
+                        <span>ROCA</span>
+                        <span>Gimnasio</span>
+                    </div>
+                </div>
+                <div class="about-content reveal-right">
+                    <span class="section-label">Sobre Nosotros</span>
+                    <h2 class="section-title">DONDE EL ESFUERZO<br>SE CONVIERTE EN<br>RESULTADOS</h2>
+                    <p class="about-text">Roca Gimnasio nació con un propósito claro: ofrecer a la comunidad de Los Ángeles, Santo Domingo, un espacio donde cada persona pueda transformar su cuerpo y su mente. No somos solo un gimnasio — somos una familia que crece unida.</p>
+                    <p class="about-text">Ubicados en el Km 13 de la Autopista Duarte, nos hemos convertido en el centro de entrenamiento de referencia, con equipos de primera calidad y entrenadores comprometidos con tu progreso.</p>
+                    <div class="about-values">
+                        <div class="about-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>Disciplina</span>
+                        </div>
+                        <div class="about-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                            <span>Comunidad</span>
+                        </div>
+                        <div class="about-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span>Excelencia</span>
+                        </div>
+                        <div class="about-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            <span>Pasión</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SERVICIOS ═══════════ -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <div class="services-header reveal">
+                <span class="section-label">Nuestros Servicios</span>
+                <h2 class="section-title">DISCIPLINAS QUE<br>TE TRANSFORMAN</h2>
+                <p class="section-desc">Cada disciplina está diseñada para llevar tu cuerpo al siguiente nivel. Elige tu camino o combínalos todos.</p>
+            </div>
+            <div class="services-grid">
+                <!-- Pesas -->
+                <div class="service-card reveal stagger-1">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5h11M6.5 17.5h11M2 12h2M20 12h2M4 8v8M20 8v8M7 6v12M17 6v12"/></svg>
+                    </div>
+                    <h3>ENTRENAMIENTO CON PESAS</h3>
+                    <p>Área completa de pesas libres y máquinas de última generación. Construye músculo, gana fuerza y define tu físico con nuestro equipo profesional.</p>
+                </div>
+                <!-- Boxeo -->
+                <div class="service-card reveal stagger-2">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h4l2-3m-2 3v5M8 9a3 3 0 1 1 6 0"/></svg>
+                    </div>
+                    <h3>BOXEO</h3>
+                    <p>Entrenamiento de boxeo que combina cardio explosivo con técnica de combate. Libera estrés, mejora reflejos y alcanza una condición física superior.</p>
+                </div>
+                <!-- Zumba -->
+                <div class="service-card reveal stagger-3">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    </div>
+                    <h3>ZUMBA</h3>
+                    <p>Clases de Zumba con la mejor energía y ritmos latinos. Quema calorías bailando, tonifica tu cuerpo y diviértete mientras te pones en forma.</p>
+                </div>
+                <!-- Careos de Pesas -->
+                <div class="service-card reveal stagger-4">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18"/><path d="M18 15h1.5a2.5 2.5 0 0 0 0-5C17 10 15 13 12 13s-5-3-7.5-3a2.5 2.5 0 0 0 0 5H6"/><line x1="12" y1="7" x2="12" y2="13"/><path d="M6 15l6 5 6-5"/></svg>
+                    </div>
+                    <h3>CAREOS DE PESAS</h3>
+                    <p>Competencias internas donde los miembros se retan entre sí. Demuestra tu fuerza, supera tus límites y celebra con tu comunidad Roca.</p>
+                </div>
+                <!-- Nutrición -->
+                <div class="service-card reveal stagger-5">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                    </div>
+                    <h3>NUTRICIÓN Y ASESORÍA</h3>
+                    <p>Planes de alimentación personalizados con @rocanutritionoficial. Maximiza tus resultados con una nutrición diseñada para tus objetivos.</p>
+                </div>
+                <!-- Suplementos -->
+                <div class="service-card reveal stagger-6">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <h3>VENTA DE SUPLEMENTOS</h3>
+                    <p>Tienda de suplementos deportivos dentro del gym. Proteínas, pre-entrenos, aminoácidos y todo lo que necesitas para potenciar tu rendimiento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ RETO 21 DÍAS ═══════════ -->
+    <section class="reto" id="reto">
+        <div class="hero-bg reto-bg">
+            <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=1600&q=80" alt="Reto 21 días entrenamiento" loading="lazy">
+        </div>
+        <div class="container">
+            <div class="reto-content">
+                <div class="reto-left reveal-left">
+                    <span class="section-label">Programa Especial</span>
+                    <div class="reto-number">21</div>
+                    <h2>DÍAS PARA<br>TRANSFORMARTE</h2>
+                </div>
+                <div class="reto-right reveal-right">
+                    <p>El Reto 21 Días de Roca Gimnasio es nuestro programa intensivo de transformación física y mental. Durante tres semanas, te guiamos con un plan de entrenamiento estructurado y acompañamiento nutricional para que veas resultados reales.</p>
+                    <div class="reto-features">
+                        <div class="reto-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Plan de entrenamiento personalizado</span>
+                        </div>
+                        <div class="reto-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Guía nutricional incluida</span>
+                        </div>
+                        <div class="reto-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Seguimiento y motivación diaria</span>
+                        </div>
+                        <div class="reto-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Comunidad de apoyo exclusiva</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/18098205103?text=Hola%2C%20quiero%20información%20sobre%20el%20Reto%2021%20Días" class="btn btn-primary" target="_blank" rel="noopener">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                        Quiero el Reto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ HORARIOS ═══════════ -->
+    <section class="horarios" id="horarios">
+        <div class="container">
+            <div class="horarios-header reveal">
+                <span class="section-label">Horario de Apertura</span>
+                <h2 class="section-title">ABIERTOS CUANDO<br>TÚ NECESITAS</h2>
+                <p class="section-desc">Desde las 5 de la mañana hasta la medianoche. Sin excusas.</p>
+            </div>
+            <div class="horarios-table reveal">
+                <div class="horario-row">
+                    <span class="status-dot"></span>
+                    <span class="day">LUNES</span>
+                    <span class="time">5:00 AM — 12:00 AM</span>
+                </div>
+                <div class="horario-row">
+                    <span class="status-dot"></span>
+                    <span class="day">MARTES</span>
+                    <span class="time">5:00 AM — 12:00 AM</span>
+                </div>
+                <div class="horario-row">
+                    <span class="status-dot"></span>
+                    <span class="day">MIÉRCOLES</span>
+                    <span class="time">5:00 AM — 12:00 AM</span>
+                </div>
+                <div class="horario-row">
+                    <span class="status-dot"></span>
+                    <span class="day">JUEVES</span>
+                    <span class="time">5:00 AM — 12:00 AM</span>
+                </div>
+                <div class="horario-row">
+                    <span class="status-dot"></span>
+                    <span class="day">VIERNES</span>
+                    <span class="time">5:00 AM — 12:00 AM</span>
+                </div>
+                <div class="horario-row">
+                    <span class="status-dot"></span>
+                    <span class="day">SÁBADO</span>
+                    <span class="time">6:00 AM — 2:00 PM</span>
+                </div>
+                <div class="horario-row closed">
+                    <span class="status-dot"></span>
+                    <span class="day">DOMINGO</span>
+                    <span class="time">CERRADO</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SUPLEMENTOS ═══════════ -->
+    <section class="suplementos" id="suplementos">
+        <div class="container">
+            <div class="suplementos-grid">
+                <div class="suplementos-content reveal-left">
+                    <span class="section-label">Roca Nutrition</span>
+                    <h2 class="section-title">SUPLEMENTOS<br>DEPORTIVOS</h2>
+                    <p>Potencia cada repetición con nuestra línea de suplementos de alta calidad. En Roca Gimnasio tenemos todo lo que necesitas para complementar tu entrenamiento y alcanzar tus metas más ambiciosas.</p>
+                    <ul class="suplementos-list">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Proteínas Whey & Isolate
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Pre-Entrenos de Alto Rendimiento
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            BCAA & Aminoácidos Esenciales
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Creatina & Glutamina
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Quemadores de Grasa
+                        </li>
+                    </ul>
+                    <a href="https://www.instagram.com/rocanutritionoficial/" class="btn btn-primary" target="_blank" rel="noopener">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        @rocanutritionoficial
+                    </a>
+                </div>
+                <div class="suplementos-image reveal-right">
+                    <img src="suplementos.jpg" alt="Suplementos deportivos Roca Nutrition" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CEO / FUNDADOR ═══════════ -->
+    <section class="ceo" id="ceo">
+        <div class="container">
+            <div class="ceo-grid">
+                <div class="ceo-image reveal-left">
+                    <img src="ceo.jpeg" alt="Isaac Cabrera Núñez — Fundador de Roca Gimnasio" loading="lazy">
+                    <div class="ceo-tag">
+                        <h3>ISAAC CABRERA NÚÑEZ</h3>
+                        <span>Fundador & CEO</span>
+                    </div>
+                </div>
+                <div class="ceo-content reveal-right">
+                    <span class="section-label">El Fundador</span>
+                    <h2 class="section-title">LA VISIÓN DETRÁS<br>DE ROCA GIMNASIO</h2>
+                    <blockquote class="ceo-quote">
+                        "Creé Roca Gimnasio porque creo que todos merecen un espacio donde sentirse fuertes, motivados y parte de algo más grande. Este gimnasio es de ustedes y para ustedes."
+                    </blockquote>
+                    <p class="ceo-text">Isaac Cabrera Núñez es más que el fundador de Roca Gimnasio — es un líder que inspira con el ejemplo. Su visión de crear un espacio fitness de primer nivel en Los Ángeles, Santo Domingo, se ha convertido en una realidad que transforma vidas cada día. Con dedicación inquebrantable y un compromiso genuino con cada miembro, Isaac ha construido no solo un gimnasio, sino una comunidad que impulsa a cada persona a ser su mejor versión.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ GALERÍA ═══════════ -->
+    <section class="galeria" id="galeria">
+        <div class="container">
+            <div class="galeria-header reveal">
+                <span class="section-label">Nuestro Espacio</span>
+                <h2 class="section-title">GALERÍA</h2>
+            </div>
+            <div class="galeria-grid">
+                <div class="galeria-item reveal stagger-1">
+                    <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=80" alt="Área de pesas Roca Gimnasio" loading="lazy">
+                </div>
+                <div class="galeria-item reveal stagger-2">
+                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80" alt="Entrenamiento funcional" loading="lazy">
+                </div>
+                <div class="galeria-item reveal stagger-3">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80" alt="Entrenamiento con pesas" loading="lazy">
+                </div>
+                <div class="galeria-item reveal stagger-4">
+                    <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80" alt="Clase de boxeo" loading="lazy">
+                </div>
+                <div class="galeria-item reveal stagger-5">
+                    <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80" alt="Cardio y fitness" loading="lazy">
+                </div>
+                <div class="galeria-item reveal stagger-6">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Comunidad Roca Gimnasio" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ TESTIMONIOS ═══════════ -->
+    <section class="testimonios" id="testimonios">
+        <div class="container">
+            <div class="testimonios-header reveal">
+                <span class="section-label">Testimonios</span>
+                <h2 class="section-title">LO QUE DICE<br>NUESTRA FAMILIA</h2>
+            </div>
+            <div class="testimonios-grid">
+                <!-- Testimonio 1 -->
+                <div class="testimonio-card reveal stagger-1">
+                    <div class="testimonio-stars">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p>"Llevo un año entrenando en Roca y ha sido la mejor decisión. El ambiente es increíble, los equipos están en perfecto estado y el equipo de entrenadores siempre te motiva a dar más. Me siento parte de una familia."</p>
+                    <div class="testimonio-author">
+                        <div class="testimonio-avatar">JR</div>
+                        <div class="testimonio-info">
+                            <h4>José Ramón Espinal</h4>
+                            <span>Miembro desde 2023</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonio 2 -->
+                <div class="testimonio-card reveal stagger-2">
+                    <div class="testimonio-stars">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p>"Hice el Reto 21 Días y bajé 15 libras. Lo que más me gustó es que no me sentí sola en ningún momento, siempre había alguien motivándome. Roca no es un gimnasio común, aquí se siente el cariño."</p>
+                    <div class="testimonio-author">
+                        <div class="testimonio-avatar">YM</div>
+                        <div class="testimonio-info">
+                            <h4>Yamilet Montero</h4>
+                            <span>Miembro desde 2024</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonio 3 -->
+                <div class="testimonio-card reveal stagger-3">
+                    <div class="testimonio-stars">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p>"De los mejores gimnasios de la zona sin duda. Los careos de pesas son brutales, te dan esa adrenalina que necesitas para seguir superándote. El dueño Isaac siempre está pendiente de todos, eso vale mucho."</p>
+                    <div class="testimonio-author">
+                        <div class="testimonio-avatar">MP</div>
+                        <div class="testimonio-info">
+                            <h4>Miguel Ángel Peña</h4>
+                            <span>Miembro desde 2022</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CONTACTO ═══════════ -->
+    <section class="contacto" id="contacto">
+        <div class="container">
+            <div class="contacto-grid">
+                <div class="contacto-info reveal-left">
+                    <span class="section-label">Contáctanos</span>
+                    <h2 class="section-title">EMPIEZA HOY<br>TU CAMBIO</h2>
+                    <p>Visítanos en el Km 13 de la Autopista Duarte o escríbenos por WhatsApp. Estamos listos para ayudarte a alcanzar tus metas.</p>
+                    <div class="contacto-items">
+                        <a href="https://maps.google.com/?q=Km+13+Autopista+Duarte+Los+Angeles+Santo+Domingo" class="contacto-item" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <div>
+                                <h4>Ubicación</h4>
+                                <span>Km 13 Autopista Duarte, Los Ángeles, Santo Domingo, RD</span>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/18098205103" class="contacto-item" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <div>
+                                <h4>WhatsApp 1</h4>
+                                <span>(809) 820-5103</span>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/18295544752" class="contacto-item" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <div>
+                                <h4>WhatsApp 2</h4>
+                                <span>(829) 554-4752</span>
+                            </div>
+                        </a>
+                        <a href="https://www.instagram.com/rocagimnasio13/" class="contacto-item" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            <div>
+                                <h4>Instagram</h4>
+                                <span>@rocagimnasio13</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="contacto-whatsapp-btns">
+                        <a href="https://wa.me/18098205103?text=Hola%2C%20quiero%20información%20sobre%20Roca%20Gimnasio" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            (809) 820-5103
+                        </a>
+                        <a href="https://wa.me/18295544752?text=Hola%2C%20quiero%20información%20sobre%20Roca%20Gimnasio" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            (829) 554-4752
+                        </a>
+                    </div>
+                </div>
+                <div class="contacto-map reveal-right">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5!2d-69.95!3d18.55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMzJzAwLjAiTiA2OcKwNTcnMDAuMCJX!5e0!3m2!1ses!2sdo!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación Roca Gimnasio"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="navbar-logo">
+                        ROCA <span class="logo-accent">GIMNASIO</span>
+                    </div>
+                    <p>"El Gimnasio de ustedes, cada día brindamos un servicio especial de calidad." Somos más que un gimnasio, somos tu familia fitness en Los Ángeles, Santo Domingo.</p>
+                    <div class="footer-socials">
+                        <a href="https://www.instagram.com/rocagimnasio13/" class="footer-social" target="_blank" rel="noopener" aria-label="Instagram Roca Gimnasio">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/rocanutritionoficial/" class="footer-social" target="_blank" rel="noopener" aria-label="Instagram Roca Nutrition">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                        </a>
+                        <a href="https://wa.me/18098205103" class="footer-social" target="_blank" rel="noopener" aria-label="WhatsApp Roca Gimnasio">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>NAVEGACIÓN</h4>
+                    <ul>
+                        <li><a href="#about">Sobre Nosotros</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#reto">Reto 21 Días</a></li>
+                        <li><a href="#galeria">Galería</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>SERVICIOS</h4>
+                    <ul>
+                        <li><a href="#servicios">Pesas</a></li>
+                        <li><a href="#servicios">Boxeo</a></li>
+                        <li><a href="#servicios">Zumba</a></li>
+                        <li><a href="#servicios">Careos de Pesas</a></li>
+                        <li><a href="#suplementos">Suplementos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>HORARIOS</h4>
+                    <ul class="footer-schedule">
+                        <li><span>Lun — Vie</span><span>5AM – 12AM</span></li>
+                        <li><span>Sábado</span><span>6AM – 2PM</span></li>
+                        <li><span>Domingo</span><span>Cerrado</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 <span>Roca Gimnasio</span>. Todos los derechos reservados.</p>
+                <p>Km 13 Autopista Duarte, Los Ángeles, Santo Domingo, RD</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════ FLOATING WHATSAPP ═══════════ -->
+    <a href="https://wa.me/18098205103?text=Hola%2C%20quiero%20información%20sobre%20Roca%20Gimnasio" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <div class="pulse-ring"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- ═══════════ JAVASCRIPT ═══════════ -->
+    <script>
+        // ── Navbar scroll effect ──
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ── Mobile menu ──
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) toggleMenu();
+            });
+        });
+
+        // ── Scroll reveal (Intersection Observer) ──
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ── Smooth scroll for anchor links ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ── Active nav link on scroll ──
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = 'var(--granate-light)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
