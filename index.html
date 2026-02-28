@@ -10,21 +10,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ═══════════════════════════════════════
-           CSS VARIABLES & RESET
+           CSS VARIABLES & RESET — LIGHT THEME
            ═══════════════════════════════════════ */
         :root {
             --granate: #9B1B30;
             --granate-dark: #7A1526;
             --granate-light: #C42847;
-            --black: #0A0A0A;
-            --black-light: #141414;
-            --gray-900: #1A1A1A;
-            --gray-800: #2A2A2A;
-            --gray-700: #3A3A3A;
-            --gray-400: #999;
-            --gray-300: #BBB;
-            --white: #F5F5F5;
-            --pure-white: #FFFFFF;
+            --bg-white: #FFFFFF;
+            --bg-light: #F8F8F8;
+            --bg-warm: #F3F1EF;
+            --text-dark: #1A1A1A;
+            --text-body: #444444;
+            --text-muted: #777777;
+            --border-light: #E5E5E5;
+            --border-medium: #D0D0D0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 16px 50px rgba(0,0,0,0.10);
+            --footer-bg: #1A1A1A;
+            --footer-light: #2A2A2A;
             --font-display: 'Bebas Neue', sans-serif;
             --font-heading: 'Oswald', sans-serif;
             --font-body: 'Barlow', sans-serif;
@@ -43,8 +47,8 @@
 
         body {
             font-family: var(--font-body);
-            background: var(--black);
-            color: var(--white);
+            background: var(--bg-white);
+            color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
         }
@@ -76,7 +80,7 @@
             font-weight: 500;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--granate-light);
+            color: var(--granate);
             margin-bottom: 12px;
         }
 
@@ -86,14 +90,15 @@
             line-height: 1;
             letter-spacing: 2px;
             margin-bottom: 20px;
+            color: var(--text-dark);
         }
 
         .section-desc {
             font-size: 1.05rem;
-            color: var(--gray-300);
+            color: var(--text-body);
             max-width: 600px;
             line-height: 1.7;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .btn {
@@ -113,7 +118,7 @@
 
         .btn-primary {
             background: var(--granate);
-            color: var(--pure-white);
+            color: #FFFFFF;
             clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
             padding: 16px 44px;
         }
@@ -121,23 +126,34 @@
         .btn-primary:hover {
             background: var(--granate-light);
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(155, 27, 48, 0.4);
+            box-shadow: 0 8px 30px rgba(155, 27, 48, 0.3);
         }
 
         .btn-outline {
             background: transparent;
-            color: var(--white);
-            border: 2px solid var(--gray-700);
+            color: var(--text-dark);
+            border: 2px solid var(--border-medium);
         }
 
         .btn-outline:hover {
             border-color: var(--granate);
-            color: var(--granate-light);
+            color: var(--granate);
+        }
+
+        /* Hero-specific outline override (white text in dark hero) */
+        .hero .btn-outline {
+            color: #FFFFFF;
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .hero .btn-outline:hover {
+            border-color: #FFFFFF;
+            color: #FFFFFF;
         }
 
         .btn-whatsapp {
             background: #25D366;
-            color: var(--pure-white);
+            color: #FFFFFF;
             border-radius: 50px;
             padding: 14px 28px;
             font-weight: 600;
@@ -146,7 +162,7 @@
         .btn-whatsapp:hover {
             background: #20BD5A;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
         }
 
         .reveal {
@@ -184,7 +200,7 @@
         }
 
         /* ═══════════════════════════════════════
-           1. NAVBAR
+           1. NAVBAR — White with subtle shadow
            ═══════════════════════════════════════ */
         .navbar {
             position: fixed;
@@ -197,11 +213,11 @@
         }
 
         .navbar.scrolled {
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 12px 0;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
         }
 
         .navbar .container {
@@ -214,14 +230,19 @@
             font-family: var(--font-display);
             font-size: 1.8rem;
             letter-spacing: 4px;
-            color: var(--pure-white);
+            color: #FFFFFF;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: color 0.4s ease;
+        }
+
+        .navbar.scrolled .navbar-logo {
+            color: var(--text-dark);
         }
 
         .navbar-logo .logo-accent {
-            color: var(--granate-light);
+            color: var(--granate);
         }
 
         .navbar-links {
@@ -236,9 +257,13 @@
             font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--gray-300);
+            color: rgba(255,255,255,0.8);
             transition: color 0.3s ease;
             position: relative;
+        }
+
+        .navbar.scrolled .navbar-links a {
+            color: var(--text-body);
         }
 
         .navbar-links a::after {
@@ -253,7 +278,11 @@
         }
 
         .navbar-links a:hover {
-            color: var(--pure-white);
+            color: #FFFFFF;
+        }
+
+        .navbar.scrolled .navbar-links a:hover {
+            color: var(--granate);
         }
 
         .navbar-links a:hover::after {
@@ -262,7 +291,7 @@
 
         .navbar-cta {
             background: var(--granate);
-            color: var(--pure-white) !important;
+            color: #FFFFFF !important;
             padding: 10px 22px;
             clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
             font-size: 0.8rem !important;
@@ -272,7 +301,7 @@
 
         .navbar-cta:hover {
             background: var(--granate-light) !important;
-            color: var(--pure-white) !important;
+            color: #FFFFFF !important;
         }
 
         /* Hamburger */
@@ -288,8 +317,12 @@
         .hamburger span {
             width: 28px;
             height: 2px;
-            background: var(--white);
+            background: #FFFFFF;
             transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .hamburger span {
+            background: var(--text-dark);
         }
 
         .hamburger.active span:nth-child(1) {
@@ -305,7 +338,7 @@
         }
 
         /* ═══════════════════════════════════════
-           2. HERO
+           2. HERO — Dark section (photo bg)
            ═══════════════════════════════════════ */
         .hero {
             position: relative;
@@ -325,7 +358,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.3) contrast(1.1);
+            filter: brightness(0.35) contrast(1.1);
         }
 
         .hero-bg::after {
@@ -334,9 +367,9 @@
             inset: 0;
             background: linear-gradient(
                 135deg,
-                rgba(10, 10, 10, 0.9) 0%,
-                rgba(10, 10, 10, 0.5) 40%,
-                rgba(155, 27, 48, 0.15) 100%
+                rgba(10, 10, 10, 0.85) 0%,
+                rgba(10, 10, 10, 0.45) 50%,
+                rgba(155, 27, 48, 0.12) 100%
             );
         }
 
@@ -344,7 +377,7 @@
             position: absolute;
             inset: 0;
             z-index: 1;
-            opacity: 0.04;
+            opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-size: 128px 128px;
             pointer-events: none;
@@ -354,6 +387,7 @@
             position: relative;
             z-index: 2;
             padding: 120px 0 80px;
+            color: #FFFFFF;
         }
 
         .hero-badge {
@@ -361,20 +395,20 @@
             align-items: center;
             gap: 8px;
             padding: 8px 20px;
-            border: 1px solid var(--gray-700);
+            border: 1px solid rgba(255,255,255,0.25);
             margin-bottom: 28px;
             font-family: var(--font-heading);
             font-size: 0.8rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--gray-400);
+            color: rgba(255,255,255,0.7);
             animation: fadeInDown 1s ease 0.2s both;
         }
 
         .hero-badge .dot {
             width: 8px;
             height: 8px;
-            background: var(--granate);
+            background: var(--granate-light);
             border-radius: 50%;
             animation: pulse-dot 2s ease infinite;
         }
@@ -390,6 +424,7 @@
             line-height: 0.95;
             letter-spacing: 3px;
             margin-bottom: 10px;
+            color: #FFFFFF;
             animation: fadeInUp 1s ease 0.4s both;
         }
 
@@ -402,7 +437,7 @@
             font-family: var(--font-heading);
             font-size: clamp(1rem, 2vw, 1.3rem);
             font-weight: 300;
-            color: var(--gray-300);
+            color: rgba(255,255,255,0.75);
             max-width: 550px;
             margin-bottom: 40px;
             letter-spacing: 1px;
@@ -422,7 +457,7 @@
             gap: 48px;
             margin-top: 64px;
             padding-top: 32px;
-            border-top: 1px solid var(--gray-800);
+            border-top: 1px solid rgba(255,255,255,0.15);
             animation: fadeInUp 1s ease 1s both;
         }
 
@@ -438,7 +473,7 @@
             font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--gray-400);
+            color: rgba(255,255,255,0.5);
             margin-top: 4px;
         }
 
@@ -471,11 +506,12 @@
         }
 
         /* ═══════════════════════════════════════
-           3. SOBRE NOSOTROS
+           3. SOBRE NOSOTROS — White bg
            ═══════════════════════════════════════ */
         .about {
             padding: 120px 0;
             position: relative;
+            background: var(--bg-white);
         }
 
         .about::before {
@@ -485,7 +521,7 @@
             left: 0;
             width: 100%;
             height: 1px;
-            background: linear-gradient(to right, transparent, var(--gray-800), transparent);
+            background: linear-gradient(to right, transparent, var(--border-light), transparent);
         }
 
         .about-grid {
@@ -503,7 +539,7 @@
             width: 100%;
             height: 500px;
             object-fit: cover;
-            filter: grayscale(30%);
+            border-radius: 4px;
         }
 
         .about-image::before {
@@ -515,6 +551,7 @@
             height: 100%;
             border: 2px solid var(--granate);
             z-index: -1;
+            border-radius: 4px;
         }
 
         .about-image .exp-badge {
@@ -524,6 +561,7 @@
             width: 120px;
             height: 120px;
             background: var(--granate);
+            color: #FFFFFF;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -545,9 +583,9 @@
         }
 
         .about-content .about-text {
-            color: var(--gray-300);
+            color: var(--text-body);
             margin-bottom: 16px;
-            font-weight: 300;
+            font-weight: 400;
             font-size: 1.05rem;
             line-height: 1.8;
         }
@@ -564,14 +602,15 @@
             align-items: center;
             gap: 12px;
             padding: 16px;
-            background: var(--gray-900);
+            background: var(--bg-light);
             border-left: 3px solid var(--granate);
+            border-radius: 4px;
         }
 
         .about-value svg {
             width: 24px;
             height: 24px;
-            color: var(--granate-light);
+            color: var(--granate);
             flex-shrink: 0;
         }
 
@@ -581,14 +620,15 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 500;
+            color: var(--text-dark);
         }
 
         /* ═══════════════════════════════════════
-           4. SERVICIOS
+           4. SERVICIOS — Light gray bg
            ═══════════════════════════════════════ */
         .services {
             padding: 120px 0;
-            background: var(--gray-900);
+            background: var(--bg-light);
             position: relative;
         }
 
@@ -600,8 +640,8 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(155, 27, 48, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(155, 27, 48, 0.04) 0%, transparent 60%);
+                radial-gradient(ellipse at 20% 50%, rgba(155, 27, 48, 0.03) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(155, 27, 48, 0.02) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -623,9 +663,10 @@
         }
 
         .service-card {
-            background: var(--black-light);
+            background: var(--bg-white);
             padding: 40px 32px;
-            border: 1px solid var(--gray-800);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -645,9 +686,9 @@
         }
 
         .service-card:hover {
-            border-color: var(--granate-dark);
+            border-color: var(--border-medium);
             transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow-lg);
         }
 
         .service-card:hover::before {
@@ -661,14 +702,15 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 24px;
-            background: rgba(155, 27, 48, 0.1);
-            border: 1px solid rgba(155, 27, 48, 0.2);
+            background: rgba(155, 27, 48, 0.07);
+            border: 1px solid rgba(155, 27, 48, 0.12);
+            border-radius: 6px;
         }
 
         .service-icon svg {
             width: 28px;
             height: 28px;
-            color: var(--granate-light);
+            color: var(--granate);
         }
 
         .service-card h3 {
@@ -676,17 +718,18 @@
             font-size: 1.6rem;
             letter-spacing: 2px;
             margin-bottom: 12px;
+            color: var(--text-dark);
         }
 
         .service-card p {
-            color: var(--gray-400);
+            color: var(--text-body);
             font-size: 0.95rem;
             line-height: 1.7;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* ═══════════════════════════════════════
-           5. RETO 21 DÍAS
+           5. RETO 21 DÍAS — Dark section (photo bg)
            ═══════════════════════════════════════ */
         .reto {
             padding: 120px 0;
@@ -704,14 +747,14 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.2) contrast(1.2);
+            filter: brightness(0.25) contrast(1.2);
         }
 
         .reto-bg::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(155, 27, 48, 0.3) 0%, rgba(10, 10, 10, 0.9) 70%);
+            background: linear-gradient(135deg, rgba(155, 27, 48, 0.25) 0%, rgba(10, 10, 10, 0.88) 70%);
         }
 
         .reto-content {
@@ -721,12 +764,13 @@
             grid-template-columns: 1fr 1fr;
             gap: 64px;
             align-items: center;
+            color: #FFFFFF;
         }
 
         .reto-left .reto-number {
             font-family: var(--font-display);
             font-size: clamp(6rem, 12vw, 10rem);
-            color: var(--granate);
+            color: var(--granate-light);
             line-height: 0.85;
             opacity: 0.9;
         }
@@ -736,10 +780,11 @@
             font-size: clamp(2rem, 4vw, 3.5rem);
             letter-spacing: 3px;
             margin-top: -10px;
+            color: #FFFFFF;
         }
 
         .reto-right p {
-            color: var(--gray-300);
+            color: rgba(255,255,255,0.8);
             font-size: 1.1rem;
             line-height: 1.8;
             font-weight: 300;
@@ -758,8 +803,8 @@
             align-items: center;
             gap: 14px;
             padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border-left: 3px solid var(--granate);
+            background: rgba(255, 255, 255, 0.06);
+            border-left: 3px solid var(--granate-light);
         }
 
         .reto-feature svg {
@@ -774,14 +819,15 @@
             font-size: 0.9rem;
             letter-spacing: 1px;
             font-weight: 500;
+            color: #FFFFFF;
         }
 
         /* ═══════════════════════════════════════
-           6. HORARIOS
+           6. HORARIOS — White bg
            ═══════════════════════════════════════ */
         .horarios {
             padding: 120px 0;
-            background: var(--gray-900);
+            background: var(--bg-white);
         }
 
         .horarios-header {
@@ -803,12 +849,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 24px 32px;
-            border-bottom: 1px solid var(--gray-800);
+            border-bottom: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
 
         .horario-row:hover {
-            background: rgba(155, 27, 48, 0.05);
+            background: var(--bg-light);
             padding-left: 40px;
         }
 
@@ -816,13 +862,14 @@
             font-family: var(--font-display);
             font-size: 1.5rem;
             letter-spacing: 2px;
+            color: var(--text-dark);
         }
 
         .horario-row .time {
             font-family: var(--font-heading);
             font-size: 1rem;
             letter-spacing: 1px;
-            color: var(--gray-300);
+            color: var(--text-body);
             font-weight: 400;
         }
 
@@ -844,11 +891,12 @@
         }
 
         /* ═══════════════════════════════════════
-           7. SUPLEMENTOS
+           7. SUPLEMENTOS — Light gray bg
            ═══════════════════════════════════════ */
         .suplementos {
             padding: 120px 0;
             position: relative;
+            background: var(--bg-light);
         }
 
         .suplementos-grid {
@@ -863,10 +911,10 @@
         }
 
         .suplementos-content p {
-            color: var(--gray-300);
+            color: var(--text-body);
             font-size: 1.05rem;
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 16px;
         }
 
@@ -885,12 +933,13 @@
             font-size: 0.95rem;
             letter-spacing: 1px;
             font-weight: 500;
+            color: var(--text-dark);
         }
 
         .suplementos-list li svg {
             width: 20px;
             height: 20px;
-            color: var(--granate-light);
+            color: var(--granate);
             flex-shrink: 0;
         }
 
@@ -902,6 +951,7 @@
             width: 100%;
             height: 480px;
             object-fit: cover;
+            border-radius: 6px;
         }
 
         .suplementos-image::after {
@@ -913,26 +963,27 @@
             height: 100%;
             border: 2px solid var(--granate);
             z-index: -1;
+            border-radius: 6px;
         }
 
         /* ═══════════════════════════════════════
-           8. CEO / FUNDADOR
+           8. CEO / FUNDADOR — White bg
            ═══════════════════════════════════════ */
         .ceo {
             padding: 120px 0;
-            background: var(--gray-900);
+            background: var(--bg-white);
             position: relative;
             overflow: hidden;
         }
 
         .ceo::before {
-            content: '"';
+            content: '\201C';
             position: absolute;
             top: 60px;
             right: 10%;
             font-family: var(--font-display);
             font-size: 20rem;
-            color: rgba(155, 27, 48, 0.06);
+            color: rgba(155, 27, 48, 0.05);
             line-height: 1;
             pointer-events: none;
         }
@@ -954,7 +1005,7 @@
             width: 100%;
             height: 480px;
             object-fit: cover;
-            filter: grayscale(20%);
+            border-radius: 6px;
         }
 
         .ceo-image .ceo-tag {
@@ -965,6 +1016,8 @@
             background: linear-gradient(to top, var(--granate-dark), transparent);
             padding: 40px 24px 20px;
             text-align: center;
+            border-radius: 0 0 6px 6px;
+            color: #FFFFFF;
         }
 
         .ceo-tag h3 {
@@ -988,26 +1041,27 @@
         .ceo-content .ceo-quote {
             font-size: 1.3rem;
             font-style: italic;
-            color: var(--gray-300);
+            color: var(--text-body);
             line-height: 1.8;
             margin-bottom: 24px;
             padding-left: 24px;
             border-left: 3px solid var(--granate);
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .ceo-content .ceo-text {
-            color: var(--gray-400);
+            color: var(--text-muted);
             font-size: 1rem;
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* ═══════════════════════════════════════
-           9. GALERÍA
+           9. GALERÍA — Light gray bg
            ═══════════════════════════════════════ */
         .galeria {
             padding: 120px 0;
+            background: var(--bg-light);
         }
 
         .galeria-header {
@@ -1025,6 +1079,7 @@
         .galeria-item {
             overflow: hidden;
             position: relative;
+            border-radius: 6px;
         }
 
         .galeria-item:nth-child(1) {
@@ -1039,22 +1094,21 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease, filter 0.4s ease;
-            filter: grayscale(30%);
+            transition: transform 0.6s ease;
         }
 
         .galeria-item:hover img {
             transform: scale(1.08);
-            filter: grayscale(0%);
         }
 
         .galeria-item::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(10, 10, 10, 0.5), transparent);
+            background: linear-gradient(to top, rgba(155, 27, 48, 0.3), transparent);
             opacity: 0;
             transition: opacity 0.4s ease;
+            border-radius: 6px;
         }
 
         .galeria-item:hover::after {
@@ -1062,11 +1116,11 @@
         }
 
         /* ═══════════════════════════════════════
-           10. TESTIMONIOS
+           10. TESTIMONIOS — White bg
            ═══════════════════════════════════════ */
         .testimonios {
             padding: 120px 0;
-            background: var(--gray-900);
+            background: var(--bg-white);
         }
 
         .testimonios-header {
@@ -1081,24 +1135,26 @@
         }
 
         .testimonio-card {
-            background: var(--black-light);
+            background: var(--bg-white);
             padding: 40px 32px;
-            border: 1px solid var(--gray-800);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
             position: relative;
             transition: all 0.3s ease;
         }
 
         .testimonio-card:hover {
-            border-color: var(--granate-dark);
+            border-color: var(--border-medium);
             transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
 
         .testimonio-card::before {
-            content: '"';
+            content: '\201C';
             font-family: var(--font-display);
             font-size: 5rem;
             color: var(--granate);
-            opacity: 0.3;
+            opacity: 0.15;
             position: absolute;
             top: 16px;
             right: 24px;
@@ -1114,15 +1170,15 @@
         .testimonio-stars svg {
             width: 18px;
             height: 18px;
-            color: var(--granate-light);
-            fill: var(--granate-light);
+            color: var(--granate);
+            fill: var(--granate);
         }
 
         .testimonio-card p {
-            color: var(--gray-300);
+            color: var(--text-body);
             font-size: 1rem;
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
             font-style: italic;
             margin-bottom: 28px;
         }
@@ -1138,6 +1194,7 @@
             height: 48px;
             border-radius: 50%;
             background: var(--granate);
+            color: #FFFFFF;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1151,18 +1208,20 @@
             font-size: 1rem;
             letter-spacing: 1px;
             font-weight: 600;
+            color: var(--text-dark);
         }
 
         .testimonio-info span {
             font-size: 0.8rem;
-            color: var(--gray-400);
+            color: var(--text-muted);
         }
 
         /* ═══════════════════════════════════════
-           11. CONTACTO
+           11. CONTACTO — Light gray bg
            ═══════════════════════════════════════ */
         .contacto {
             padding: 120px 0;
+            background: var(--bg-light);
         }
 
         .contacto-grid {
@@ -1176,10 +1235,10 @@
         }
 
         .contacto-info > p {
-            color: var(--gray-300);
+            color: var(--text-body);
             font-size: 1.05rem;
             line-height: 1.7;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 36px;
         }
 
@@ -1195,20 +1254,22 @@
             align-items: center;
             gap: 16px;
             padding: 16px 20px;
-            background: var(--gray-900);
+            background: var(--bg-white);
             border-left: 3px solid var(--granate);
+            border-radius: 4px;
+            box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
         }
 
         .contacto-item:hover {
-            background: var(--gray-800);
+            box-shadow: var(--shadow-md);
             padding-left: 28px;
         }
 
         .contacto-item svg {
             width: 24px;
             height: 24px;
-            color: var(--granate-light);
+            color: var(--granate);
             flex-shrink: 0;
         }
 
@@ -1218,13 +1279,14 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 500;
-            color: var(--gray-400);
+            color: var(--text-muted);
             margin-bottom: 2px;
         }
 
         .contacto-item div span {
             font-size: 1.05rem;
             font-weight: 500;
+            color: var(--text-dark);
         }
 
         .contacto-whatsapp-btns {
@@ -1242,12 +1304,13 @@
             height: 100%;
             min-height: 460px;
             border: 0;
-            filter: grayscale(80%) contrast(1.1) brightness(0.8);
+            border-radius: 6px;
+            filter: grayscale(30%) contrast(1) brightness(1);
             transition: filter 0.4s ease;
         }
 
         .contacto-map:hover iframe {
-            filter: grayscale(40%) contrast(1) brightness(0.9);
+            filter: grayscale(0%) contrast(1) brightness(1);
         }
 
         .contacto-map::before {
@@ -1260,15 +1323,17 @@
             border: 2px solid var(--granate);
             z-index: -1;
             pointer-events: none;
+            border-radius: 6px;
         }
 
         /* ═══════════════════════════════════════
-           12. FOOTER
+           12. FOOTER — Dark (unique dark section)
            ═══════════════════════════════════════ */
         .footer {
-            background: var(--black-light);
-            border-top: 1px solid var(--gray-800);
+            background: var(--footer-bg);
+            border-top: 3px solid var(--granate);
             padding: 80px 0 32px;
+            color: #FFFFFF;
         }
 
         .footer-grid {
@@ -1278,12 +1343,16 @@
             margin-bottom: 60px;
         }
 
+        .footer .navbar-logo {
+            color: #FFFFFF;
+        }
+
         .footer-brand .navbar-logo {
             margin-bottom: 16px;
         }
 
         .footer-brand p {
-            color: var(--gray-400);
+            color: rgba(255,255,255,0.6);
             font-size: 0.95rem;
             line-height: 1.7;
             font-weight: 300;
@@ -1301,9 +1370,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--gray-900);
-            border: 1px solid var(--gray-800);
+            background: var(--footer-light);
+            border: 1px solid rgba(255,255,255,0.1);
             transition: all 0.3s ease;
+            color: #FFFFFF;
         }
 
         .footer-social:hover {
@@ -1322,6 +1392,7 @@
             font-size: 1.2rem;
             letter-spacing: 2px;
             margin-bottom: 20px;
+            color: #FFFFFF;
         }
 
         .footer-col ul li {
@@ -1329,7 +1400,7 @@
         }
 
         .footer-col ul li a {
-            color: var(--gray-400);
+            color: rgba(255,255,255,0.55);
             font-size: 0.9rem;
             transition: color 0.3s ease;
         }
@@ -1341,19 +1412,19 @@
         .footer-col .footer-schedule li {
             display: flex;
             justify-content: space-between;
-            color: var(--gray-400);
+            color: rgba(255,255,255,0.55);
             font-size: 0.85rem;
             padding-bottom: 8px;
         }
 
         .footer-col .footer-schedule li span:first-child {
             font-weight: 500;
-            color: var(--gray-300);
+            color: rgba(255,255,255,0.75);
         }
 
         .footer-bottom {
             padding-top: 32px;
-            border-top: 1px solid var(--gray-800);
+            border-top: 1px solid rgba(255,255,255,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1362,7 +1433,7 @@
         }
 
         .footer-bottom p {
-            color: var(--gray-400);
+            color: rgba(255,255,255,0.45);
             font-size: 0.85rem;
         }
 
@@ -1384,7 +1455,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
             z-index: 999;
             transition: all 0.3s ease;
             animation: bounce-in 0.6s ease 2s both;
@@ -1392,7 +1463,7 @@
 
         .whatsapp-float:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.5);
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.45);
         }
 
         .whatsapp-float svg {
@@ -1431,13 +1502,22 @@
                 right: -100%;
                 width: 300px;
                 height: 100vh;
-                background: var(--black-light);
+                background: var(--bg-white);
                 flex-direction: column;
                 justify-content: center;
                 gap: 28px;
                 transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                border-left: 1px solid var(--gray-800);
+                border-left: 1px solid var(--border-light);
                 padding: 32px;
+                box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+            }
+
+            .navbar-links a {
+                color: var(--text-body) !important;
+            }
+
+            .navbar-links a:hover {
+                color: var(--granate) !important;
             }
 
             .navbar-links.active {
@@ -1576,7 +1656,7 @@
         .menu-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.4);
             z-index: 998;
             opacity: 0;
             visibility: hidden;
